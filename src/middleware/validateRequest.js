@@ -17,7 +17,7 @@ export function validateRequest(schema) {
       });
     }
 
-    req.bod = result.data;
+    req.body = result.data;
 
     next();
   };
