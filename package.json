@@ -1,0 +1,25 @@
+{
+  "name": "card-order-api",
+  "version": "1.0.0",
+  "description": "An interview-focused REST API for managing card orders",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "rest-api"
+  ],
+  "author": "Zongyao Yang",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
