@@ -3,6 +3,7 @@ import { z } from "zod";
 export const createOrderSchema = z.object(
     {
         memberId: z.string().trim().min(1, "Member ID is required."),
+        
         cardType: z.enum(
             ["new", "replacement", "renewal"],
             {

@@ -28,9 +28,10 @@
 
 import express from "express";
 import { orderController } from "../controllers/orderController.js";
+import { validateRequest } from "../middleware/validateRequest.js";
+import { createOrderSchema } from "../schemas/orderSchema.js";
 
 // The route connects an HTTP method and URL to a controller
-
 const router = express.Router();
 
 /**
@@ -38,6 +39,10 @@ const router = express.Router();
  *
  * Creates a new card order.
  */
-router.post("/", orderController.createOrder);
+router.post(
+  "/",
+  validateRequest(createOrderSchema),
+  orderController.createOrder,
+);
 
 export default router;
