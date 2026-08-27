@@ -45,4 +45,6 @@ router.post(
   orderController.createOrder,
 );
 
+router.get("/:orderId", orderController.getOrderById);
+
 export default router;
