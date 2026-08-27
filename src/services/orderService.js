@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { orderRepository } from "../repositories/orderRepository";
+import { orderRepository } from "../repositories/orderRepository.js";
 
 function createOrder(orderInput) {
     const order = {
@@ -14,6 +14,6 @@ function createOrder(orderInput) {
     return orderRepository.save(order);
 }
 
-export const orderService - {
+export const orderService = {
     createOrder,
 }
