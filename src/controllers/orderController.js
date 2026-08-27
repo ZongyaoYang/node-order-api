@@ -13,15 +13,6 @@ function getOrderById(req, res) {
 
   const order = orderService.getOrderById(orderId);
 
-  if (!order) {
-    return res.status(404).json({
-      error: {
-        code: "ORDER_NOT_FOUND",
-        message: "Order was not found.",
-      },
-    });
-  }
-
   return res.status(200).json({
     data: order,
   });
