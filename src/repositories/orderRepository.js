@@ -11,4 +11,5 @@ function findById(orderId) {
 
 export const orderRepository = {
   save,
+  findById,
 };
