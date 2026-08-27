@@ -17,6 +17,7 @@ function getOrderById(req, res) {
     return res.status(404).json({
       error: {
         code: "ORDER_NOT_FOUND",
+        message: "Order was not found.",
       },
     });
   }
