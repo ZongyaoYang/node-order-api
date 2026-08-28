@@ -1,5 +1,6 @@
 import express from "express";
 import orderRoutes from "./routes/orderRoutes.js"
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 
@@ -13,4 +14,6 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/orders", orderRoutes);
+
+app.use(errorHandler);
 export default app;
