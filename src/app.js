@@ -1,16 +1,40 @@
 import express from "express";
-import orderRoutes from "./routes/orderRoutes.js"
+import helmet from "helmet";
+import cors from "cors";
+
+import orderRoutes from "./routes/orderRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { env } from "./config/env.js";
 
 const app = express();
 
-app.use(express.json());
+const allowedOrigins = env.CORS_ORIGINS.split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+// Do not advertise the framework in response headers.
+app.disable("x-powered-by");
+
+// Add defensive HTTP headers.
+app.use(helmet());
+
+// Allow browser requests only from configured frontend origins.
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization", "Idempotency-Key"],
+  }),
+);
+
+// Parse JSON, but reject unusually large request bodies.
+app.use(express.json({ limit: "100kb" }));
 
 app.get("/health", (req, res) => {
-    res.status(200).json({
-        status: "ok",
-        message: "Card Order API is running",
-    });
+  res.status(200).json({
+    status: "ok",
+    message: "Card Order API is running",
+  });
 });
 
 app.use("/api/orders", orderRoutes);
