@@ -17,8 +17,10 @@
   "author": "Zongyao Yang",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.0.0",
+    "helmet": "^8.3.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
