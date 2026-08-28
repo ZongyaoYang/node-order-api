@@ -1,11 +1,11 @@
-import { AppError } from "../errors/AppError.js";
+import { OrderNotFoundError } from "../errors/OrderNotFoundError.js";
 
 export function errorHandler(error, req, res, next) {
-  if (error instanceof AppError) {
-    return res.status(error.statusCode).json({
+  if (error instanceof OrderNotFoundError) {
+    return res.status(404).json({
       error: {
         code: error.code,
-        message: error.message,
+        message: "Order was not found.",
       },
     });
   }
