@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { orderRepository } from "../repositories/orderRepository.js";
 import { AppError } from "../errors/AppError.js";
+import { OrderNotFoundError } from "../errors/OrderNotFoundError.js";
 
 function createOrder(orderInput) {
   const order = {
@@ -19,10 +20,10 @@ function getOrderById(orderId) {
   const order = orderRepository.findById(orderId);
 
   if (!order) {
-    throw new AppError(404, "ORDER_NOT_FOUNT", "Order was not found.");
+    throw new OrderNotFoundError(orderId);
   }
 
-  return order
+  return order;
 }
 
 export const orderService = {
