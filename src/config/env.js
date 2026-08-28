@@ -8,7 +8,7 @@ const environmentSchema = z.object({
 
   PORT: z.coerce.number().int().positive().default(3000),
 
-  DATABASE_URL: z.string().min(1, "DATABASE_URL is required."),
+  DATABASE_URL: z.string().trim().min(1, "DATABASE_URL is required."),
 
   LOG_LEVEL: z
     .enum(["fatal", "error", "warn", "info", "debug", "trace"])
@@ -25,7 +25,7 @@ if (!result.success) {
     })
     .join("\n");
 
-  throw new Error(`Invalid environment configuration:\n${messages}`);
+  throw new Error(`Invalid environment configuration:\n${message}`);
 }
 
-export const env = result.data
+export const env = result.data;
