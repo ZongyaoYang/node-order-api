@@ -13,6 +13,8 @@ const environmentSchema = z.object({
   LOG_LEVEL: z
     .enum(["fatal", "error", "warn", "info", "debug", "trace"])
     .default("info"),
+
+  CORS_ORIGINS: z.string().default("http://localhost:5173"),
 });
 
 const result = environmentSchema.safeParse(process.env);
