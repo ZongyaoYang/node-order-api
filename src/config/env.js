@@ -15,6 +15,12 @@ const environmentSchema = z.object({
     .default("info"),
 
   CORS_ORIGINS: z.string().default("http://localhost:5173"),
+
+  DB_POOL_MAX: z.coerce.number().int().positive().default(10),
+
+  DB_CONNECTION_TIMEOUT_MS: z.coerce.number().int().positive().default(5000),
+
+  DB_IDLE_TIMEOUT_MS: z.coerce.number().int().positive().default(30000),
 });
 
 const result = environmentSchema.safeParse(process.env);

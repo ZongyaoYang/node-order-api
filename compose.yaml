@@ -1,4 +1,6 @@
 services:
+#For local development, PostgreSQL is served in Docker with a persistent named volume and a readiness health check.
+#The code does not depend on whether PostgreSQL is local or not.
   database:
     image: postgres:17-alpine
     restart: unless-stopped
