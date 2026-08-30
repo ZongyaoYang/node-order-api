@@ -3,6 +3,8 @@ import helmet from "helmet";
 import cors from "cors";
 
 import orderRoutes from "./routes/orderRoutes.js";
+import healthRoutes from "./routes/healthRoutes.js";
+
 import { errorHandler } from "./middleware/errorHandler.js";
 import { env } from "./config/env.js";
 
@@ -30,13 +32,7 @@ app.use(
 // Parse JSON, but reject unusually large request bodies.
 app.use(express.json({ limit: "100kb" }));
 
-app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "ok",
-    message: "Card Order API is running",
-  });
-});
-
+app.use("/health", healthRoutes);
 app.use("/api/orders", orderRoutes);
 
 app.use(errorHandler);
