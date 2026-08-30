@@ -1,17 +1,17 @@
 import { orderService } from "../services/orderService.js";
 
-function createOrder(req, res) {
-  const createdOrder = orderService.createOrder(req.body);
+async function createOrder(req, res) {
+  const createdOrder = await orderService.createOrder(req.body);
 
   res.status(201).location(`/api/orders/${createdOrder.orderId}`).json({
     data: createdOrder,
   });
 }
 
-function getOrderById(req, res) {
+async function getOrderById(req, res) {
   const { orderId } = req.params;
 
-  const order = orderService.getOrderById(orderId);
+  const order = await orderService.getOrderById(orderId);
 
   return res.status(200).json({
     data: order,

@@ -3,14 +3,15 @@ import { orderRepository } from "../repositories/orderRepository.js";
 import { AppError } from "../errors/AppError.js";
 import { OrderNotFoundError } from "../errors/OrderNotFoundError.js";
 
-function createOrder(orderInput) {
+async function createOrder(orderInput) {
   const order = {
     orderId: randomUUID(),
     memberId: orderInput.memberId,
     cardType: orderInput.cardType,
     shippingMethod: orderInput.shippingMethod,
     status: "pending",
-    createdAt: new Date().toISOString(),
+    // PostgreSQL generates timestamps using DEFAULT CURRENT_TIMESTAMP
+    // createdAt: new Date().toISOString(),
   };
 
   return orderRepository.save(order);

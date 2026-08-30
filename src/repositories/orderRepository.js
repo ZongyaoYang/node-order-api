@@ -42,7 +42,9 @@ async function findById(orderId) {
         shipping_method AS "shippingMethod",
         status,
         created_at AS "createdAt",
-        updated_at AS "updatedAt";
+        updated_at AS "updatedAt"
+    FROM orders
+    WHERE order_id = $1;
   `;
 
   const result = await pool.query(query, [orderId]);
