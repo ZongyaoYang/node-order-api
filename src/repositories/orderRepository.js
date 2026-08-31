@@ -107,8 +107,32 @@ async function findMany({ status, memberId, limit, offset }) {
   };
 }
 
+async function updateStatus(orderId, newStatus, expectedStatus) {
+  const query = `
+    UPDATE orders
+    SET
+      status = $2,
+      updated_at = CURRENT_TIMESTAMP
+    WHERE order_id = $1
+      AND status = $3
+    RETURNING
+      order_id AS "orderId",
+      number_id AS "memberId",
+      card_type AS "cardType",
+      shipping_method AS "shippingMethod",
+      status,
+      created_at AS "createdAt",
+      updated_at AS "updatedAt"
+  `;
+
+  const result = await pool.query(query, [orderId, newStatus, expectedStatus]);
+
+  return result.rows[0] ?? null;
+}
+
 export const orderRepository = {
   save,
   findById,
   findMany,
+  updateStatus,
 };

@@ -2,6 +2,15 @@ import { randomUUID } from "node:crypto";
 import { orderRepository } from "../repositories/orderRepository.js";
 import { AppError } from "../errors/AppError.js";
 import { OrderNotFoundError } from "../errors/OrderNotFoundError.js";
+import { InvalidOrderStatusTransitionError } from "../errors/InvalidOrderStatusTransitionError.js";
+
+const allowedStatusTransitions = {
+  pending: ["processing", "cancelled"],
+  processing: ["shipped", "cancelled"],
+  shipped: ["delivered"],
+  delivered: [],
+  cancelled: [],
+};
 
 async function createOrder(orderInput) {
   const order = {
@@ -48,8 +57,35 @@ async function listOrders({ page, limit, status, memberId }) {
   };
 }
 
+async function updateOrderStatus(orderId, requestedStatus) {
+  const order = await getOrderById(orderId);
+
+  const allowedStatuses = allowedStatusTransitions[order.status];
+
+  if (!allowedStatuses.includes(requestedStatus)) {
+    throw new InvalidOrderStatusTransitionError(order.status, requestedStatus);
+  }
+
+  const updatedOrder = await orderRepository.updateStatus(
+    orderId,
+    requestedStatus,
+    order.status,
+  );
+
+  if (!updatedOrder) {
+    throw new AppError(
+      "ORDER_UPDATE_CONFLICT",
+      409,
+      "Order was modified by another request. Please retry.",
+    );
+  }
+
+  return updatedOrder;
+}
+
 export const orderService = {
   createOrder,
   getOrderById,
   listOrders,
+  updateOrderStatus,
 };

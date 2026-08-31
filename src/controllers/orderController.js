@@ -1,3 +1,4 @@
+import { ja } from "zod/locales";
 import { orderService } from "../services/orderService.js";
 
 async function createOrder(req, res) {
@@ -27,8 +28,20 @@ async function listOrders(req, res) {
   });
 }
 
+async function updateOrderStatus(req, res) {
+  const { orderId } = res.locals.validatedParams;
+  const { status } = res.locals.validatedQuery.status;
+
+  const order = await orderService.updateOrderStatus(orderId, status);
+
+  return res.status(200).json({
+    data: order,
+  });
+}
+
 export const orderController = {
   createOrder,
   getOrderById,
   listOrders,
+  updateOrderStatus,
 };

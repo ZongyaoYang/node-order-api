@@ -38,3 +38,13 @@ export const orderIdParamsSchema = z
     orderId: z.string().uuid("Order ID must be a valid UUID"),
   })
   .strict();
+
+export const updateOrderStatusSchema = z.object({
+  status: z.enum([
+    "pending",
+    "processing",
+    "shipped",
+    "delivered",
+    "cancelled",
+  ]),
+});

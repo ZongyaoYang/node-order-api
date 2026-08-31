@@ -33,7 +33,8 @@ import {
   createOrderSchema,
   listOrdersQuerySchema,
   orderIdParamsSchema,
-} from "../schemas/orderSchema.js";
+  updateOrderStatusSchema,
+} from "../schemas/orderSchemas.js";
 import { validateQuery } from "../middleware/validateQuery.js";
 import { validateParams } from "../middleware/validateParams.js";
 
@@ -61,6 +62,13 @@ router.get(
   "/:orderId",
   validateParams(orderIdParamsSchema),
   orderController.getOrderById,
+);
+
+router.patch(
+  "/:orderId/status",
+  validateParams(orderIdParamsSchema),
+  validateRequest(updateOrderStatusSchema),
+  orderController.updateOrderStatus,
 );
 
 export default router;
