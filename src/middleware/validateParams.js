@@ -17,7 +17,7 @@ export function validateParams(schema) {
       });
     }
 
-    res.locals.validateParams = result.data;
+    res.locals.validatedParams = result.data;
 
     return next();
   };

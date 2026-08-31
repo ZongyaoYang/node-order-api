@@ -17,8 +17,8 @@ async function createOrder(orderInput) {
   return orderRepository.save(order);
 }
 
-function getOrderById(orderId) {
-  const order = orderRepository.findById(orderId);
+async function getOrderById(orderId) {
+  const order = await orderRepository.findById(orderId);
 
   if (!order) {
     throw new OrderNotFoundError(orderId);

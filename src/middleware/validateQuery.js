@@ -17,7 +17,7 @@ export function validateQuery(schema) {
       });
     }
 
-    res.locals.validateQuery = result.data;
+    res.locals.validatedQuery = result.data;
 
     return next();
   };

@@ -9,7 +9,7 @@ async function createOrder(req, res) {
 }
 
 async function getOrderById(req, res) {
-  const { orderId } = req.locals.validatedParams;
+  const { orderId } = res.locals.validatedParams;
 
   const order = await orderService.getOrderById(orderId);
 
@@ -19,7 +19,7 @@ async function getOrderById(req, res) {
 }
 
 async function listOrders(req, res) {
-  const result = await orderService.listOrders(res.locals.validateQuery);
+  const result = await orderService.listOrders(res.locals.validatedQuery);
 
   return res.status(200).json({
     data: result.orders,
