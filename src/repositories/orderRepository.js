@@ -117,7 +117,7 @@ async function updateStatus(orderId, newStatus, expectedStatus) {
       AND status = $3
     RETURNING
       order_id AS "orderId",
-      number_id AS "memberId",
+      member_id AS "memberId",
       card_type AS "cardType",
       shipping_method AS "shippingMethod",
       status,

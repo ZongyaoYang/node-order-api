@@ -30,7 +30,7 @@ async function listOrders(req, res) {
 
 async function updateOrderStatus(req, res) {
   const { orderId } = res.locals.validatedParams;
-  const { status } = res.locals.validatedQuery.status;
+  const { status } = req.body;
 
   const order = await orderService.updateOrderStatus(orderId, status);
 
