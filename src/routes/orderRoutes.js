@@ -29,10 +29,20 @@
 import express from "express";
 import { orderController } from "../controllers/orderController.js";
 import { validateRequest } from "../middleware/validateRequest.js";
-import { createOrderSchema } from "../schemas/orderSchema.js";
+import {
+  createOrderSchema,
+  listOrdersQuerySchema,
+} from "../schemas/orderSchema.js";
+import { validateQuery } from "../middleware/validateQuery.js";
 
 // The route connects an HTTP method and URL to a controller
 const router = express.Router();
+
+router.get(
+  "/",
+  validateQuery(listOrdersQuerySchema),
+  orderController.listOrders,
+);
 
 /**
  * POST /api/orders

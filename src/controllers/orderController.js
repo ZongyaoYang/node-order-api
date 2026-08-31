@@ -18,7 +18,17 @@ async function getOrderById(req, res) {
   });
 }
 
+async function listOrders(req, res) {
+  const result = await orderService.listOrders(res.locals.validateQuery);
+
+  return res.status(200).json({
+    data: result.orders,
+    pagination: result.pagination,
+  });
+}
+
 export const orderController = {
   createOrder,
   getOrderById,
+  listOrders,
 };
