@@ -1,12 +1,32 @@
 services:
-#For local development, PostgreSQL is served in Docker with a persistent named volume and a readiness health check.
-#The code does not depend on whether PostgreSQL is local or not.
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+      CORS_ORIGINS: http://localhost:5173
+      LOG_LEVEL: info
+      DB_POOL_MAX: ${DB_POOL_MAX}
+      DB_CONNECTION_TIMEOUT_MS: ${DB_CONNECTION_TIMEOUT_MS}
+      DB_IDLE_TIMEOUT_MS: ${DB_IDLE_TIMEOUT_MS}
+    ports:
+      - "3000:3000"
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: unless-stopped
+
+  #For local development, PostgreSQL is served in Docker with a persistent named volume and a readiness health check.
+  #The code does not depend on whether PostgreSQL is local or not.
   database:
     image: postgres:17-alpine
     restart: unless-stopped
 
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_USER: ${POSTGRES_USER}doc
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
 
