@@ -3,13 +3,11 @@ import { AppError } from "./AppError.js";
 export class InvalidOrderStatusTransitionError extends AppError {
   constructor(currentStatus, requestedStatus) {
     super(
-      "INVALID_ORDER_STATUS_TRANSITION",
       409,
+      "INVALID_ORDER_STATUS_TRANSITION",
       `Order status cannot change from ${currentStatus} to ${requestedStatus}`,
-      {
-        currentStatus,
-        requestedStatus,
-      },
     );
+    this.currentStatus = currentStatus;
+    this.requestedStatus = requestedStatus;
   }
 }
