@@ -10,7 +10,7 @@ export function errorHandler(error, req, res, next) {
     });
   }
 
-  console.error(error);
+  console.error("Unexpected request error:", error);
 
   return res.status(500).json({
     error: {

@@ -9,7 +9,7 @@ async function createOrder(req, res) {
 }
 
 async function getOrderById(req, res) {
-  const { orderId } = req.params;
+  const { orderId } = req.locals.validatedParams;
 
   const order = await orderService.getOrderById(orderId);
 

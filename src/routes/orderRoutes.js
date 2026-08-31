@@ -32,8 +32,10 @@ import { validateRequest } from "../middleware/validateRequest.js";
 import {
   createOrderSchema,
   listOrdersQuerySchema,
+  orderIdParamsSchema,
 } from "../schemas/orderSchema.js";
 import { validateQuery } from "../middleware/validateQuery.js";
+import { validateParams } from "../middleware/validateParams.js";
 
 // The route connects an HTTP method and URL to a controller
 const router = express.Router();
@@ -55,6 +57,10 @@ router.post(
   orderController.createOrder,
 );
 
-router.get("/:orderId", orderController.getOrderById);
+router.get(
+  "/:orderId",
+  validateParams(orderIdParamsSchema),
+  orderController.getOrderById,
+);
 
 export default router;

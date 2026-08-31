@@ -32,3 +32,9 @@ export const listOrdersQuerySchema = z
     memberId: z.string().trim().min(1, "Member ID cannot be empty.").optional(),
   })
   .strict();
+
+export const orderIdParamsSchema = z
+  .object({
+    orderId: z.string().uuid("Order ID must be a valid UUID"),
+  })
+  .strict();
