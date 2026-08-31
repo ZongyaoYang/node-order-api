@@ -75,7 +75,7 @@ async function findMany({ status, memberId, limit, offset }) {
   const dataQuery = `
     SELECT
         order_id AS "orderId",
-        member_id AS "memberId,
+        member_id AS "memberId",
         card_type AS "cardType",
         shipping_method AS "shippingMethod",
         status,
@@ -100,6 +100,11 @@ async function findMany({ status, memberId, limit, offset }) {
     pool.query(dataQuery, dataValues),
     pool.query(countQuery, filterValues),
   ]);
+
+  return {
+    orders: dataResult.rows,
+    total: Number(countResult.rows[0].total),
+  };
 }
 
 export const orderRepository = {

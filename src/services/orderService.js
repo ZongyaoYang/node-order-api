@@ -27,7 +27,29 @@ function getOrderById(orderId) {
   return order;
 }
 
+async function listOrders({ page, limit, status, memberId }) {
+  const offset = (page - 1) * limit;
+
+  const result = await orderRepository.findMany({
+    status,
+    memberId,
+    limit,
+    offset,
+  });
+
+  return {
+    orders: result.orders,
+    pagination: {
+      page,
+      limit,
+      totalItems: result.total,
+      totalPages: Math.ceil(result.total / limit),
+    },
+  };
+}
+
 export const orderService = {
   createOrder,
   getOrderById,
+  listOrders,
 };
