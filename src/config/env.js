@@ -21,6 +21,8 @@ const environmentSchema = z.object({
   DB_CONNECTION_TIMEOUT_MS: z.coerce.number().int().positive().default(5000),
 
   DB_IDLE_TIMEOUT_MS: z.coerce.number().int().positive().default(30000),
+
+  SHUTDOWN_TIMEOUT_MS: z.coerce.number().int().positive().default(10000),
 });
 
 const result = environmentSchema.safeParse(process.env);

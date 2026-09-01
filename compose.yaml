@@ -12,6 +12,7 @@ services:
       DB_POOL_MAX: ${DB_POOL_MAX}
       DB_CONNECTION_TIMEOUT_MS: ${DB_CONNECTION_TIMEOUT_MS}
       DB_IDLE_TIMEOUT_MS: ${DB_IDLE_TIMEOUT_MS}
+    stop_grace_period: 15s
     ports:
       - "3000:3000"
     depends_on:
